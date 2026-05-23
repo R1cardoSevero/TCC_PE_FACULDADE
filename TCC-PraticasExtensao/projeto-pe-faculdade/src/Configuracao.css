@@ -1,0 +1,8 @@
+#configuracao{
+    background-color: rgb(240, 240, 240);
+    position: absolute;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    padding: 50px;
+}
