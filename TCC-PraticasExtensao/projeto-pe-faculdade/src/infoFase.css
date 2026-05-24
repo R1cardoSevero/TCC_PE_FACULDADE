@@ -1,0 +1,35 @@
+#infoFase{
+    background-color: red;
+    position: absolute;
+    background-color:#ed5f07;
+    height: fit-content;
+    position: fixed;
+    width: 30vw;
+    right: 0;
+    bottom: 0;
+    margin: 50px 0px;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 2;
+
+    h4{
+        background-color: #f1f1f1;
+        padding: 15px 15px;
+        margin:20px;
+        border-radius: 50px;
+    }
+    p{
+        padding: 30px;
+        color: #f1f1f1;
+    }
+    button{
+        background-color: #f1f1f1;
+        padding: 15px 0px;
+        margin:20px;
+        border-radius: 50px;
+        border: none;
+        font-size: 1.5rem;
+    }
+}

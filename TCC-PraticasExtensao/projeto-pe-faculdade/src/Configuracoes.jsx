@@ -24,6 +24,8 @@ export default function Configuracoes(props) {
         }
     }
 
+    
+
     useEffect(() => {
         if (modoEdicao) {
             inputRef.current?.focus();

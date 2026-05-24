@@ -1,4 +1,4 @@
-import niveis from './niveis';
+import niveis from './niveisXp';
 
 export default function userInfo(props){
     let imagemUsuario = props.userImage

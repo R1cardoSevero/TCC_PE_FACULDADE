@@ -6,11 +6,16 @@ import UserInfo from './userInfo'
 import UserXpInfo from './userXpInfo'
 import Configuracoes from './Configuracoes';
 import BotaoConfiguracoes from './BotaoConfiguracoes.jsx'
+import AreaFases from './AreaFases.jsx';
 
 
 export default function PaginaUsuario(props){
     const [dadosUsuario, setDadosUsuario] = useState("")
     const [abaConfiguracao, setAbaConfiguracao] = useState(false)
+
+    function onEscolheuFase(){
+        console.log("escolheu fase")
+    }
     
     async function buscarUsuario(){
         const { data, error } = await supabase
@@ -24,18 +29,27 @@ export default function PaginaUsuario(props){
     }
 
     useEffect(() => {
+        window.scrollTo(0, document.body.scrollHeight)
+    }, [dadosUsuario])
+
+    useEffect(() => {
         buscarUsuario();
     }, [props.id])
 
     function onAbrirFechar(){
-        setAbaConfiguracao(prev=>!prev)
+        setAbaConfiguracao(prev => {
+        const novoEstado = !prev
+        document.body.style.overflow = novoEstado ? 'hidden' : ''
+        return novoEstado
+    })
     }
 
     return <>
         <main>
             <UserInfo userImage={imagemDefaultUser} userName={dadosUsuario.username} xp={dadosUsuario.xp}/>
-            <UserXpInfo xp={dadosUsuario.xp}/>
             <BotaoConfiguracoes onAbrirFechar={onAbrirFechar}/>
+            <AreaFases/>
+            <UserXpInfo xp={dadosUsuario.xp}/>
             {abaConfiguracao && <Configuracoes onAbrirFechar={onAbrirFechar} dadosUsuario={dadosUsuario} onBuscarUsuario={buscarUsuario}/>}
         </main>
     </>

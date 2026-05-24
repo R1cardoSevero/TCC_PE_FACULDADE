@@ -1,4 +1,4 @@
-import niveis from './niveis';
+import niveis from './niveisXp';
 
 export default function UserXpInfo(props){
     let xp = props.xp || 0  // garante que xp nunca é undefined
@@ -16,7 +16,7 @@ export default function UserXpInfo(props){
                 content: '';
                 height: 100%;
                 border-radius: 80px;
-                width: ${(nivel_atual.xp / proximo_nivel.xp) * 100}%;
+                width: ${proximo_nivel ? (xp - nivel_atual.xp) / (proximo_nivel.xp - nivel_atual.xp) * 100 : 100}%;
                 background-color:#ff8000;
         }
         `}</style> 

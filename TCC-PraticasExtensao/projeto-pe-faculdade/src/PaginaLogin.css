@@ -1,3 +1,5 @@
+
+
 form{
     display: flex;
     flex-direction: column;
@@ -22,7 +24,7 @@ a{
     background-color: rgb(240, 240, 240);
     padding: 15px;
     border-radius: 50px;
-    position: absolute;
+    position: fixed;
     right: 20px;
     color: red;
     top: 20px;
