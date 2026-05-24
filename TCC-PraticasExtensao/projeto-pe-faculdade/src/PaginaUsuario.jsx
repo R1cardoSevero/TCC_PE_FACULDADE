@@ -12,14 +12,19 @@ export default function PaginaUsuario(props){
     const [dadosUsuario, setDadosUsuario] = useState("")
     const [abaConfiguracao, setAbaConfiguracao] = useState(false)
     
-    useEffect(() => {
-        async function buscarUsuario(){
-            const { data, error } = await supabase.from('usuarios').select('id, user_password, username, xp').eq('id', props.id).single();
+    async function buscarUsuario(){
+        const { data, error } = await supabase
+            .from('usuarios')
+            .select('id, user_password, username, xp')
+            .eq('id', props.id)
+            .single();
 
-            if (error) console.error(error);
-            else setDadosUsuario(data);
-        }
-        buscarUsuario()
+        if (error) console.error(error);
+        else setDadosUsuario(data);
+    }
+
+    useEffect(() => {
+        buscarUsuario();
     }, [props.id])
 
     function onAbrirFechar(){
@@ -31,9 +36,7 @@ export default function PaginaUsuario(props){
             <UserInfo userImage={imagemDefaultUser} userName={dadosUsuario.username} xp={dadosUsuario.xp}/>
             <UserXpInfo xp={dadosUsuario.xp}/>
             <BotaoConfiguracoes onAbrirFechar={onAbrirFechar}/>
-            {abaConfiguracao?<>
-                <Configuracoes onAbrirFechar={onAbrirFechar}/>
-            </>:null}
+            {abaConfiguracao && <Configuracoes onAbrirFechar={onAbrirFechar} dadosUsuario={dadosUsuario} onBuscarUsuario={buscarUsuario}/>}
         </main>
     </>
 }

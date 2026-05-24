@@ -8,7 +8,18 @@ export default function UserXpInfo(props){
 
     if (!nivel_atual) return <p>Carregando...</p>
 
-    return (
+    return <>
+       <style>{`
+            #userXpInfo #barra_progresso::after{
+            position: absolute;
+                top: 0;
+                content: '';
+                height: 100%;
+                border-radius: 80px;
+                width: ${(nivel_atual.xp / proximo_nivel.xp) * 100}%;
+                background-color:#ff8000;
+        }
+        `}</style> 
         <section id="userXpInfo">
             <div>
                 <label>
@@ -23,5 +34,5 @@ export default function UserXpInfo(props){
                 </label>
             </div>
         </section>
-    )
+    </>
 }

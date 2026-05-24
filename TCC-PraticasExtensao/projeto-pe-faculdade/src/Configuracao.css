@@ -1,8 +1,33 @@
 #configuracao{
-    background-color: rgb(240, 240, 240);
+    background-color: #ffffff;
     position: absolute;
     top: 0;
     height: 100vh;
     width: 100vw;
     padding: 50px;
 }
+
+#configuracao div{
+    margin: 10px 0px;
+}
+
+#configuracao .configuracao-section{
+    margin: 20px 0px;
+    h3{
+        color: #ff8000;
+    }
+    span{
+        cursor: pointer;
+    }
+    input{
+        background-color: #ff8000;
+        border-radius: 50px;
+        border: none;
+        color: #f1f1f1;
+    }
+    *{
+        padding: 10px;
+    }
+}
+
+
