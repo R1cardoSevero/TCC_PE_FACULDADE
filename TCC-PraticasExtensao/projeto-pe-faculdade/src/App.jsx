@@ -1,10 +1,12 @@
-import { useState } from 'react'
-import PaginaLogin from './PaginaLogin.jsx'
+import { Routes, Route } from 'react-router-dom'
+import PaginaLogin from './PaginaLogin'
+import PaginaLevel from './PaginaLevel'
 
 export default function App() {
-  const [count, setCount] = useState(0)
-
-  return <>
-    <PaginaLogin/>
-  </>
-} 
+  return (
+    <Routes>
+      <Route path="/" element={<PaginaLogin />} />
+      <Route path="/fase/:idFase" element={<PaginaLevel />} />
+    </Routes>
+  )
+}

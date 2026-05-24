@@ -28,6 +28,10 @@ export default function PaginaUsuario(props){
         else setDadosUsuario(data);
     }
 
+    function trocandoUserName(novoUserName){
+        setDadosUsuario(prev => ({ ...prev, username: novoUserName })) // ✅
+    }
+
     useEffect(() => {
         window.scrollTo(0, document.body.scrollHeight)
     }, [dadosUsuario])
@@ -50,7 +54,7 @@ export default function PaginaUsuario(props){
             <BotaoConfiguracoes onAbrirFechar={onAbrirFechar}/>
             <AreaFases/>
             <UserXpInfo xp={dadosUsuario.xp}/>
-            {abaConfiguracao && <Configuracoes onAbrirFechar={onAbrirFechar} dadosUsuario={dadosUsuario} onBuscarUsuario={buscarUsuario}/>}
+            {abaConfiguracao && <Configuracoes onAbrirFechar={onAbrirFechar} dadosUsuario={dadosUsuario} onBuscarUsuario={buscarUsuario}  onTrocaUsername={trocandoUserName}/>}
         </main>
     </>
 }
