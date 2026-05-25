@@ -7,12 +7,15 @@ import UserXpInfo from './userXpInfo'
 import Configuracoes from './Configuracoes';
 import BotaoConfiguracoes from './BotaoConfiguracoes.jsx'
 import AreaFases from './AreaFases.jsx';
+import { useLocation } from 'react-router-dom'
 
 
 export default function PaginaUsuario(props){
     const [dadosUsuario, setDadosUsuario] = useState("")
     const [abaConfiguracao, setAbaConfiguracao] = useState(false)
-
+    const location = useLocation()
+    const id = location.state?.id
+    
     function onEscolheuFase(){
         console.log("escolheu fase")
     }
@@ -21,7 +24,7 @@ export default function PaginaUsuario(props){
         const { data, error } = await supabase
             .from('usuarios')
             .select('id, user_password, username, xp')
-            .eq('id', props.id)
+            .eq('id', id)
             .single();
 
         if (error) console.error(error);
@@ -38,7 +41,7 @@ export default function PaginaUsuario(props){
 
     useEffect(() => {
         buscarUsuario();
-    }, [props.id])
+    }, [id])
 
     function onAbrirFechar(){
         setAbaConfiguracao(prev => {

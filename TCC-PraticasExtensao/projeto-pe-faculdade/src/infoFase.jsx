@@ -6,7 +6,7 @@ export default function InfoFaseSection(props){
     const navigate = useNavigate()
 
     function iniciarFase(idFase) {
-        navigate(`/fase/${idFase}`)
+        navigate(`/fase/${idFase}`, { state: { idUsuario: 23 } }) //NUMERO FIXO
     }
 
     return(

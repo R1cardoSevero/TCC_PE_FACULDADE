@@ -9,7 +9,7 @@ export default function AreaFases(){
     const [faseInfoSection, setFaseInfoSection] = useState(false)
     const [faseEscolhida, setFaseEscolhida] = useState(null)
     const [fasesBD, setFasesBD] = useState(null)
-   
+    console.log(fasesBD)
 
     function escolheuFase(idFase){
         
@@ -22,7 +22,7 @@ export default function AreaFases(){
     }
 
     async function buscarFases(){
-        const { data, error } = await supabase.from('fases').select('*').order('id', { ascending: true });
+        const { data, error } = await supabase.from('fases').select('*');
         
         if (error) console.error(error);
         else setFasesBD(data);
