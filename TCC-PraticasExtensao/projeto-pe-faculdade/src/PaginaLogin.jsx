@@ -1,97 +1,181 @@
-import { use, useState } from "react"
+import { useState } from "react"
 import './PaginaLogin.css'
 import supabase from './supabase';
 import PaginaUsuario from "./PaginaUsuario";
 
-export default function PaginaLogin(){
-    const [modo, setModo] = useState("modo-login")
-    const [email, setEmail] = useState("")
-    const [senha, setSenha] = useState("")
-    const [emailConfirmacao, setEmailConfirmacao] = useState("")
-    const [idUsuario, setIdUsuario] = useState("")
-    const [infoErro, setInfoErro] = useState("")
-    const [logado, setLogado] = useState(false)
+export default function PaginaLogin() {
+  const [modo, setModo] = useState("modo-login")
+  const [email, setEmail] = useState("")
+  const [senha, setSenha] = useState("")
+  const [emailConfirmacao, setEmailConfirmacao] = useState("")
+  const [idUsuario, setIdUsuario] = useState("")
+  const [infoErro, setInfoErro] = useState("")
+  const [logado, setLogado] = useState(false)
 
-    async function Logar(e){
-        e.preventDefault();
-        setInfoErro("")
-        if(email && senha){
-            await buscarUsuario(email, senha)
-        }else{
-            setInfoErro("Insira ambos os campos")
-        }
+  async function Logar(e) {
+    e.preventDefault()
+    setInfoErro("")
+    if (email && senha) {
+      await buscarUsuario(email, senha)
+    } else {
+      setInfoErro("Preencha e-mail e senha para continuar.")
+    }
+  }
+
+  async function buscarUsuario(email, senha) {
+    const { data, error } = await supabase
+      .from('usuarios')
+      .select('id, user_password')
+      .eq('user_email', email)
+      .single()
+    setInfoErro("")
+
+    if (error) {
+      if (error.code === 'PGRST116') {
+        setInfoErro("Nenhuma conta encontrada com esse e-mail.")
+      }
+      return
     }
 
-    async function buscarUsuario(email, senha) {
-        const { data, error } = await supabase.from('usuarios').select('id, user_password').eq('user_email', email).single();
-        setInfoErro("")
-
-        if(error){
-            if (error.code == 'PGRST116') {
-                setInfoErro("Nenhum usuario com esse email")
-            }
-        }
-
-        if(senha == data.user_password){
-            console.log("conseguiu logar")
-            setIdUsuario(data.id)
-            setLogado(prev=>!prev)
-        }else{
-            setInfoErro("Senha incorreta")
-        }
+    if (senha === data.user_password) {
+      setIdUsuario(data.id)
+      setLogado(true)
+    } else {
+      setInfoErro("Senha incorreta. Tente novamente.")
     }
+  }
 
-    async function inserir(){
-        const { data, error } = await supabase.from('usuarios').insert({ user_email: email, user_password: senha });
-        if(error){
-            if (error.code === '23505') {
-                setInfoErro("Usuário já cadastrado");
-            } else {
-                setInfoErro("Erro ao cadastrar, tente novamente");
-            }
-        }else{
-            console.log("Dados inseridos com sucesso")
-        }
-    }
+  async function inserir() {
+    const { error } = await supabase
+      .from('usuarios')
+      .insert({ user_email: email, user_password: senha })
 
-    async function Cadastrar(e){
-        e.preventDefault();
-        setInfoErro("")
-        console.log("Cadastrando usuario")
-        if(email && senha && emailConfirmacao){
-            if(email == emailConfirmacao){
-                await inserir()
-            }else{
-                setInfoErro("Emails não são iguais")
-            }
-        }else{
-            setInfoErro("Insira ambos os campos")
-        }
+    if (error) {
+      if (error.code === '23505') {
+        setInfoErro("Esse e-mail já está cadastrado.")
+      } else {
+        setInfoErro("Erro ao cadastrar. Tente novamente.")
+      }
     }
- 
-    return <>
-        {!logado?(modo=="modo-login"?<>
-            <form onSubmit={Logar}>
-                <label htmlFor="">Email:</label>
-                <input type="text" name="email" id="email" value={email} onChange={e=>setEmail(e.target.value)}/>
-                <label htmlFor="">Senha:</label>
-                <input type="password" name="senha" id="senha" value={senha} onChange={e=>setSenha(e.target.value)}/>
-                <h3>{infoErro}</h3>
-                <button type="submit">Entrar</button>
-                <a onClick={()=>{setModo("modo-cadastro"); setSenha("")}}>Não tenho conta</a>
-            </form>
-        </>:(modo=="modo-cadastro"?<>
-            <form onSubmit={Cadastrar}>
-                <label htmlFor="">Email:</label>
-                <input type="text" name="email" id="email" value={email} onChange={e=>setEmail(e.target.value)}/>
-                <label htmlFor="">Email Confirmação:</label>
-                <input type="text" name="email-confirmacao" id="email-confirmacao" value={emailConfirmacao} onChange={e=>setEmailConfirmacao(e.target.value)}/>
-                <label htmlFor="">Senha:</label>
-                <input type="password" name="senha" id="senha" value={senha} onChange={e=>setSenha(e.target.value)}/>
-                <h3>{infoErro}</h3>
-                <button type="submit">Cadastrar</button>
-                <a onClick={()=>{setModo("modo-login"); setSenha("")}}>Já tenho uma conta</a>
-            </form>
-        </>:null)):<PaginaUsuario id={idUsuario}/>}
-    </>
+  }
+
+  async function Cadastrar(e) {
+    e.preventDefault()
+    setInfoErro("")
+    if (email && senha && emailConfirmacao) {
+      if (email === emailConfirmacao) {
+        await inserir()
+      } else {
+        setInfoErro("Os e-mails informados não coincidem.")
+      }
+    } else {
+      setInfoErro("Preencha todos os campos para continuar.")
+    }
+  }
+
+  if (logado) return <PaginaUsuario id={idUsuario} />
+
+  return (
+    <div className="login-wrapper">
+      <div className="login-card">
+
+        <div className="login-logo">
+          <span className="game-title">CODE<br />QUEST</span>
+          <span className="game-subtitle">⛰ Escale o pico da lógica</span>
+        </div>
+
+        {modo === "modo-login" ? (
+          <form onSubmit={Logar} noValidate>
+            <label htmlFor="email">E-mail</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="seu@email.com"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              autoComplete="email"
+            />
+
+            <label htmlFor="senha">Senha</label>
+            <input
+              type="password"
+              id="senha"
+              name="senha"
+              placeholder="••••••••"
+              value={senha}
+              onChange={e => setSenha(e.target.value)}
+              autoComplete="current-password"
+            />
+
+            <p className="msg-erro">{infoErro}</p>
+
+            <button type="submit" className="btn-primary">
+              Entrar
+            </button>
+
+            <div className="links-rodape">
+              <a
+                className="link-secundario"
+                onClick={() => { setModo("modo-cadastro"); setSenha("") }}
+              >
+                Não tenho conta
+              </a>
+            </div>
+          </form>
+
+        ) : (
+          <form onSubmit={Cadastrar} noValidate>
+            <label htmlFor="email">E-mail</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="seu@email.com"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              autoComplete="email"
+            />
+
+            <label htmlFor="email-confirmacao">Confirmar e-mail</label>
+            <input
+              type="email"
+              id="email-confirmacao"
+              name="email-confirmacao"
+              placeholder="confirme seu@email.com"
+              value={emailConfirmacao}
+              onChange={e => setEmailConfirmacao(e.target.value)}
+              autoComplete="email"
+            />
+
+            <label htmlFor="senha">Senha</label>
+            <input
+              type="password"
+              id="senha"
+              name="senha"
+              placeholder="crie uma senha forte"
+              value={senha}
+              onChange={e => setSenha(e.target.value)}
+              autoComplete="new-password"
+            />
+
+            <p className="msg-erro">{infoErro}</p>
+
+            <button type="submit" className="btn-primary">
+              Criar conta
+            </button>
+
+            <div className="links-rodape">
+              <a
+                className="link-secundario"
+                onClick={() => { setModo("modo-login"); setSenha("") }}
+              >
+                Já tenho conta
+              </a>
+            </div>
+          </form>
+        )}
+      </div>
+    </div>
+  )
 }
