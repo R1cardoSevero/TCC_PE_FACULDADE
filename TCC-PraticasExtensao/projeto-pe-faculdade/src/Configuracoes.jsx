@@ -20,7 +20,7 @@ export default function Configuracoes(props) {
             console.error('Erro ao atualizar:', error.message);
         } else {
             setModoEdicao(false); 
-            props.onBuscarUsuario();
+            props.onTrocaUsername(novoUsername)
         }
     }
 
