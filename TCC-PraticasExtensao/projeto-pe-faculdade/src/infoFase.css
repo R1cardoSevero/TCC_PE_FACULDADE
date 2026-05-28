@@ -19,17 +19,43 @@
         padding: 15px 15px;
         margin:20px;
         border-radius: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     p{
         padding: 30px;
         color: #f1f1f1;
     }
-    button{
+    #botao-iniciar{
         background-color: #f1f1f1;
         padding: 15px 0px;
         margin:20px;
         border-radius: 50px;
         border: none;
         font-size: 1.5rem;
+    }
+
+    #botao-fechar{
+        background-color: red;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -100%);
+        padding: 10px 25px 5px 25px;
+        cursor: pointer;
+        font-weight: bold;
+        border: none;
+        background-color: #ed5f07;
+        color: #f1f1f1;
+        border-radius: 10px 10px 0px 0px;
+    }
+
+    h2{
+        cursor: pointer;
+        background-color: #ed5f07;
+        color: #f1f1f1;
+        padding: 10px;
+        border-radius: 50px;
     }
 }

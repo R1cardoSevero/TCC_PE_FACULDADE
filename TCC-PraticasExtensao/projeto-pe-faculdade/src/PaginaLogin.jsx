@@ -2,6 +2,7 @@ import { useState } from "react"
 import './PaginaLogin.css'
 import supabase from './supabase';
 import PaginaUsuario from "./PaginaUsuario";
+import { useNavigate } from 'react-router-dom'
 
 export default function PaginaLogin() {
   const [modo, setModo] = useState("modo-login")
@@ -11,6 +12,7 @@ export default function PaginaLogin() {
   const [idUsuario, setIdUsuario] = useState("")
   const [infoErro, setInfoErro] = useState("")
   const [logado, setLogado] = useState(false)
+  const navigate = useNavigate()
 
   async function Logar(e) {
     e.preventDefault()
@@ -39,7 +41,10 @@ export default function PaginaLogin() {
 
     if (senha === data.user_password) {
       setIdUsuario(data.id)
-      setLogado(true)
+      
+
+// onde você faz setLogado(true) e setIdUsuario
+navigate('/home', { state: { id: data.id } })
     } else {
       setInfoErro("Senha incorreta. Tente novamente.")
     }
@@ -56,6 +61,9 @@ export default function PaginaLogin() {
       } else {
         setInfoErro("Erro ao cadastrar. Tente novamente.")
       }
+    }else{
+        alert("Cadastrado com sucesso")
+        setModo("modo-login")
     }
   }
 
@@ -76,6 +84,7 @@ export default function PaginaLogin() {
   if (logado) return <PaginaUsuario id={idUsuario} />
 
   return (
+    <section id="pagina-login">
     <div className="login-wrapper">
       <div className="login-card">
 
@@ -177,5 +186,6 @@ export default function PaginaLogin() {
         )}
       </div>
     </div>
+    </section>
   )
 }

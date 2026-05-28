@@ -23,9 +23,7 @@ export default function PaginaUsuario(props){
     async function buscarUsuario(){
         const { data, error } = await supabase
             .from('usuarios')
-            .select('id, user_password, username, xp')
-            .eq('id', id)
-            .single();
+            .select('id, username, xp, fases_concluidas').eq('id', id).single();
 
         if (error) console.error(error);
         else setDadosUsuario(data);
@@ -55,7 +53,7 @@ export default function PaginaUsuario(props){
         <main>
             <UserInfo userImage={imagemDefaultUser} userName={dadosUsuario.username} xp={dadosUsuario.xp}/>
             <BotaoConfiguracoes onAbrirFechar={onAbrirFechar}/>
-            <AreaFases/>
+            <AreaFases idUsuario={id} fasesConcluidas={dadosUsuario.fases_concluidas}/>
             <UserXpInfo xp={dadosUsuario.xp}/>
             {abaConfiguracao && <Configuracoes onAbrirFechar={onAbrirFechar} dadosUsuario={dadosUsuario} onBuscarUsuario={buscarUsuario}  onTrocaUsername={trocandoUserName}/>}
         </main>

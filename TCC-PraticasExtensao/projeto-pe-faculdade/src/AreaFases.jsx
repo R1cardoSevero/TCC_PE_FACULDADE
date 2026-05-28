@@ -5,11 +5,13 @@ import supabase from './supabase.js'
 import { useEffect,useState } from 'react'
 import InfoFaseSection from './infoFase.jsx'
 
-export default function AreaFases(){
+export default function AreaFases(props){
     const [faseInfoSection, setFaseInfoSection] = useState(false)
     const [faseEscolhida, setFaseEscolhida] = useState(null)
     const [fasesBD, setFasesBD] = useState(null)
-    console.log(fasesBD)
+    const fasesConcluidas = props.fasesConcluidas
+    console.log(props)
+    console.log(fasesConcluidas)
 
     function escolheuFase(idFase){
         
@@ -20,9 +22,13 @@ export default function AreaFases(){
         }
         setFaseEscolhida(fasesBD.find(f => f.id === idFase))
     }
+    
+    function abrirFecharInfo(){
+        setFaseInfoSection(prev => !prev)
+    }
 
     async function buscarFases(){
-        const { data, error } = await supabase.from('fases').select('*');
+        const { data, error } = await supabase.from('fases').select('*').order('id', { ascending: true });
         
         if (error) console.error(error);
         else setFasesBD(data);
@@ -34,11 +40,11 @@ export default function AreaFases(){
 
     return (<>
         <section id="areaFases">
-            {fasesBD && fasesBD.map((infoFase)=>(<IconFase key={infoFase.id} infoFase={infoFase} onEscolheuFase={escolheuFase}/>))}
+            {fasesBD && fasesBD.map((infoFase)=>(<IconFase key={infoFase.id} infoFase={infoFase} onEscolheuFase={escolheuFase} FaseConcluida={fasesConcluidas.includes(infoFase.id)}/>))}
         </section>
 
         {faseInfoSection?<>
-            <InfoFaseSection InformacoesFase={faseEscolhida}/>
+            <InfoFaseSection InformacoesFase={faseEscolhida} idUsuario={props.idUsuario} onAbrirFecharInfo={abrirFecharInfo}/>
             </>:null}
         </>
     )

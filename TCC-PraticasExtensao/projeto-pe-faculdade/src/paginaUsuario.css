@@ -13,6 +13,18 @@ main {
     position: relative;
 }
 
+main::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    background: url('./assets/background-user-page.png');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.6;
+    z-index: -1;
+}
+
 #user_info{
     background-color: rgb(240, 240, 240);
     width: fit-content;
@@ -20,6 +32,7 @@ main {
     border-radius: 60px;
     position: fixed;
     top: 0;
+    z-index: 2;
     left: 0;
     div{
         

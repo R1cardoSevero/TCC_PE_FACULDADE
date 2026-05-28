@@ -1,0 +1,17 @@
+#paginaLevel{
+    background-color: #f1f1f1;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+#paginaLevel button{
+    margin: 10px;
+    padding: 15px;
+    border-radius: 50px;
+    border: none;
+    background-color:#E85D04;
+    color: #f1f1f1;
+}

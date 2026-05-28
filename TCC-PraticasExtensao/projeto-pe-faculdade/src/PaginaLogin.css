@@ -1,5 +1,44 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800&display=swap');
 
+
+
+form{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+form input, form button{
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+a{
+    text-decoration: none;
+    color: rgb(213, 123, 13);
+    text-align: center;
+    cursor:pointer;
+}
+
+#button-config{
+    width: 100px;
+    background-color: rgb(240, 240, 240);
+    padding: 15px;
+    border-radius: 50px;
+    position: fixed;
+    right: 20px;
+    color: red;
+    top: 20px;
+    z-index: 2;
+}
+
+#button-config img{
+    width: 100%;
+    filter: brightness(0) saturate(100%)
+          invert(52%) sepia(85%) saturate(2900%)
+          hue-rotate(10deg) brightness(100%);
+}
+
 :root {
   --laranja: #E85D04;
   --laranja-escuro: #9C2F00;
@@ -23,14 +62,9 @@ body {
   font-family: 'Nunito', sans-serif;
   background-color: var(--fundo);
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  position: relative;
 }
 
-body::before {
+#pagina-login::before {
   content: '';
   position: fixed;
   top: -10%;
@@ -59,6 +93,7 @@ body::before {
   width: 100vw;
   min-height: 100vh;
   padding: 40px 60px;
+  margin-left: 50px;
 }
 
 .login-card {
