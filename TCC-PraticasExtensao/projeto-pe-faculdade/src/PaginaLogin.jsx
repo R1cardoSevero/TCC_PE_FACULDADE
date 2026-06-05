@@ -5,6 +5,7 @@ import PaginaUsuario from "./PaginaUsuario";
 import { useNavigate } from 'react-router-dom'
 
 export default function PaginaLogin() {
+  const navigate = useNavigate() 
   const [modo, setModo] = useState("modo-login")
   const [email, setEmail] = useState("")
   const [senha, setSenha] = useState("")
@@ -12,7 +13,6 @@ export default function PaginaLogin() {
   const [idUsuario, setIdUsuario] = useState("")
   const [infoErro, setInfoErro] = useState("")
   const [logado, setLogado] = useState(false)
-  const navigate = useNavigate()
 
   async function Logar(e) {
     e.preventDefault()
@@ -41,13 +41,11 @@ export default function PaginaLogin() {
 
     if (senha === data.user_password) {
       setIdUsuario(data.id)
-      
-
-// onde você faz setLogado(true) e setIdUsuario
-navigate('/home', { state: { id: data.id } })
+      navigate('/home', { state: { id: data.id } })  // ← substitui o setLogado(true)
     } else {
       setInfoErro("Senha incorreta. Tente novamente.")
     }
+
   }
 
   async function inserir() {
@@ -80,8 +78,6 @@ navigate('/home', { state: { id: data.id } })
       setInfoErro("Preencha todos os campos para continuar.")
     }
   }
-
-  if (logado) return <PaginaUsuario id={idUsuario} />
 
   return (
     <section id="pagina-login">

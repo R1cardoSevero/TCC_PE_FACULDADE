@@ -95,3 +95,13 @@ main::before {
     overflow: hidden;
 }
 
+#button-config{
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 100px;
+}
+
+#button-config img{
+    width: 100%;
+}
