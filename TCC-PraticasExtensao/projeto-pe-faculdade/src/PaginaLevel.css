@@ -4,14 +4,34 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    padding: 50px 0px;
 }
 
 #paginaLevel button{
+    cursor: pointer;
+}
+
+#paginaLevel .botaoNavegarDesafios{
     margin: 10px;
     padding: 15px;
     border-radius: 50px;
     border: none;
     background-color:#E85D04;
     color: #f1f1f1;
+    width: 100px;
+}
+
+#paginaLevel .botaoNavegarDesafios{
+    background-color: #ba4700;
+}
+
+#paginaLevel .terminarFase{
+    margin: 10px;
+    padding: 15px;
+    border-radius: 50px;
+    border: none;
+    background-color:#620f00;
+    color: #f1f1f1;
+    width: 100px;
+    color: red;
 }

@@ -4,13 +4,14 @@ import { useNavigate } from 'react-router-dom'
 export default function InfoFaseSection(props){
     const fase = props.InformacoesFase
     const navigate = useNavigate()
+    const idUsuario = props.idUsuario
     
     function fecharJanela(){
         props.onAbrirFecharInfo()
     }
 
     function iniciarFase(idFase) {
-        navigate(`/fase/${idFase}`, { state: { idUsuario: 23 } }) //NUMERO FIXO
+        navigate(`/fase/${idFase}`, { state: {idUsuario:idUsuario} }) //NUMERO FIXO
     }
 
     return(

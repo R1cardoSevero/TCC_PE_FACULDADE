@@ -53,7 +53,7 @@ export default function PaginaUsuario(props){
         <main>
             <UserInfo userImage={imagemDefaultUser} userName={dadosUsuario.username} xp={dadosUsuario.xp}/>
             <BotaoConfiguracoes onAbrirFechar={onAbrirFechar}/>
-            <AreaFases idUsuario={id} fasesConcluidas={dadosUsuario.fases_concluidas}/>
+            <AreaFases idUsuario={id} fasesConcluidas={dadosUsuario.fases_concluidas?dadosUsuario.fases_concluidas:[]}/>
             <UserXpInfo xp={dadosUsuario.xp}/>
             {abaConfiguracao && <Configuracoes onAbrirFechar={onAbrirFechar} dadosUsuario={dadosUsuario} onBuscarUsuario={buscarUsuario}  onTrocaUsername={trocandoUserName}/>}
         </main>

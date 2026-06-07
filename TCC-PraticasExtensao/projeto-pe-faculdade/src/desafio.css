@@ -1,0 +1,81 @@
+#desafioArticle{
+    padding: 0px 10vw;
+    display: flex;
+    flex-direction: column;
+    
+    p{
+        margin: 10px;
+        font-size:1.2rem;
+        line-height: 2rem;
+        padding: 10px;
+        color: #3a3a3a;
+    }
+
+    p:nth-child(3){
+        background-color: rgb(212, 99, 28);
+        color: #f1f1f1;
+    }
+
+    h1{
+        margin: 20px;
+        text-align: center;
+    }
+}
+
+#alternativas{
+    display: flex;
+    flex-direction: column;
+    background-color: #ff6b10;
+    border-radius: 20px;
+    padding: 30px 50px;
+}
+
+#alternativas input{
+    margin: 10px;
+}
+
+#alternativas label{
+    background-color: #f1f1f1;
+    margin: 5px;
+    border: 2px solid rgb(126, 126, 126);
+    border-radius: 20px;
+}
+
+#alternativas label:hover{
+    background-color: #d9d9d9;
+}
+
+#desafioArticle #botaoResponder{
+    width: fit-content;
+    padding: 10px 20px;
+    border-radius: 0;
+    border: none;
+    margin: 10px auto 0px auto;
+    background-color:#f1f1f1;
+    border-radius: 10px;
+    width: 200px;
+}
+
+#desafioArticle #botaoResponder:hover{
+    background-color:#b9b9b9;
+}
+
+#desafioArticle .opcaoEscolhida{
+    background-color: #E85D04;
+    color: #f1f1f1;
+    border-color: #613204;
+}
+
+#desafioArticle .acertou{
+    background-color: rgb(79, 191, 45);
+    color: #f1f1f1;
+    text-align: center;
+    border-radius: 20px;
+}
+
+#desafioArticle .errou{
+    background-color: rgb(218, 18, 18);
+    color: #f1f1f1;
+    text-align: center;
+    border-radius: 20px;
+}
