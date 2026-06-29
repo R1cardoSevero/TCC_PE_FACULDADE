@@ -55,7 +55,7 @@ export default function PaginaUsuario(props){
             <BotaoConfiguracoes onAbrirFechar={onAbrirFechar}/>
             <AreaFases idUsuario={id} fasesConcluidas={dadosUsuario.fases_concluidas?dadosUsuario.fases_concluidas:[]}/>
             <UserXpInfo xp={dadosUsuario.xp}/>
-            {abaConfiguracao && <Configuracoes onAbrirFechar={onAbrirFechar} dadosUsuario={dadosUsuario} onBuscarUsuario={buscarUsuario}  onTrocaUsername={trocandoUserName}/>}
+            <Configuracoes fechadoAberto={abaConfiguracao?'aberto':'fechado'} onAbrirFechar={onAbrirFechar} dadosUsuario={dadosUsuario} onBuscarUsuario={buscarUsuario}  onTrocaUsername={trocandoUserName}/>
         </main>
     </>
 }

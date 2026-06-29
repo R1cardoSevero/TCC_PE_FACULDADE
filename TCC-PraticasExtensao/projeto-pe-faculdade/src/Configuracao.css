@@ -6,11 +6,18 @@
     width: 100vw;
     padding: 50px;
     z-index: 3;
-    animation: fundo .2s;
 }
 
 #configuracao div{
     margin: 10px 0px;
+}
+
+.fechado{
+    animation: fechando .2s forwards;
+}
+
+.aberto{
+    animation: abrindo .2s forwards;
 }
 
 #configuracao .configuracao-section{
@@ -32,12 +39,23 @@
     }
 }
 
-@keyframes fundo {
+@keyframes abrindo {
     from{
+        display: block;
         transform: translateY(-100vw);
     }
     to{
-        transform: translateY(0vh);
+        transform: translateY(0vw);
+    }
+}
+
+@keyframes fechando {
+    from{
+        transform: translateY(0vw);
+    }
+    to{
+        transform: translateY(-100vw);
+        display: none;
     }
 }
 

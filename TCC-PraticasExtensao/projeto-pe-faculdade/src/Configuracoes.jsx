@@ -33,7 +33,7 @@ export default function Configuracoes(props) {
     }, [modoEdicao]);
 
     return (
-        <section id='configuracao'>
+        <section id='configuracao' className={props.fechadoAberto}>
             <h1>Configuração:</h1>
             <article className='configuracao-section'>
                 <h3>Nome de usuário atual</h3>

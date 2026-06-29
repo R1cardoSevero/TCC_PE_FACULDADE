@@ -10,19 +10,33 @@
     margin-top: 40px;
     width: 130px;
     color: #f1f1f1;
-    box-shadow: 0px 12px 0px #a74101;
+    box-shadow: 0px 15px 0px #a74101;
     height: 120px;
     font-size: 2.6rem;
     border-radius: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: .3s;
+}
+
+#areaFases .fase:hover{
+    box-shadow: 0px 0px 0px rgb(25, 25, 25) !important;
+    transform: translateY(-5px) !;
 }
 
 #areaFases .fase:nth-child(odd){
     transform: translateX(75px);
 }
 
+#areaFases .fase:nth-child(odd):hover{
+    transform: translate(75px,10px);
+}
+
 #areaFases .fase:nth-child(even){
     transform: translateX(-75px);
+}
+
+#areaFases .fase:nth-child(even):hover{
+    transform: translate(-75px,10px);
 }
