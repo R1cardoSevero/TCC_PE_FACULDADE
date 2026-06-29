@@ -27,6 +27,7 @@ a{
 
 #button-config{
     width: 100px;
+    height: 100px;
     background-color: rgb(240, 240, 240);
     padding: 15px;
     border-radius: 50px;
@@ -35,6 +36,7 @@ a{
     color: red;
     top: 20px;
     z-index: 2;
+    transition: .5s;
 }
 
 #button-config img{
@@ -42,6 +44,10 @@ a{
     filter: brightness(0) saturate(100%)
           invert(52%) sepia(85%) saturate(2900%)
           hue-rotate(10deg) brightness(100%);
+}
+
+#button-config:hover{
+  rotate: 90deg;
 }
 
 :root {

@@ -27,11 +27,12 @@
     flex-direction: column;
     background-color: #ff6b10;
     border-radius: 20px;
-    padding: 30px 50px;
+    padding: 30px 20px;
 }
 
 #alternativas input{
     margin: 10px;
+    display: none;
 }
 
 #alternativas label{
@@ -39,6 +40,7 @@
     margin: 5px;
     border: 2px solid rgb(126, 126, 126);
     border-radius: 20px;
+    padding: 10px;
 }
 
 #alternativas label:hover{

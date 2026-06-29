@@ -4,7 +4,6 @@
     background-color:#ed5f07;
     height: fit-content;
     position: fixed;
-    width: 30vw;
     right: 0;
     bottom: 0;
     margin: 50px 20px;
@@ -13,6 +12,8 @@
     flex-direction: column;
     justify-content: space-between;
     z-index: 2;
+    max-width: 500px;
+    width: 100%;
 
     h4{
         background-color: #f1f1f1;
@@ -25,6 +26,7 @@
     }
     p{
         padding: 30px;
+        font-size: clamp(1.3rem,3vw,1.6rem);
         color: #f1f1f1;
     }
     #botao-iniciar{
@@ -34,6 +36,14 @@
         border-radius: 50px;
         border: none;
         font-size: 1.5rem;
+        transition: .7s;
+        border: 1px solid transparent;
+    }
+
+    #botao-iniciar:hover{
+        background-color: #ed5f07;
+        border: 1px solid #f1f1f1;
+        color: #f1f1f1;
     }
 
     #botao-fechar{

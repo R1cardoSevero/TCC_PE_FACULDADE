@@ -29,7 +29,11 @@ export default function PaginaLevel(){
         <section id="paginaLevel">
             <h1>LEVEL - {idFase}</h1>
             {desafios.filter((desafio) => desafio.id === desafioAtual).map((desafio) => <Desafio key={desafio.id} infoDesafio={desafio} />)}
-            <span><button className='botaoNavegarDesafios' onClick={()=>(trocandoDesafio(-1))}>Voltar</button><button onClick={()=>(terminarFase(556))} className='terminarFase'>Terminar Fase</button><button className='botaoNavegarDesafios' onClick={()=>(trocandoDesafio(+1))}>Próximo</button></span>
+            <span>
+            <button className='botaoNavegarDesafios' onClick={()=>(trocandoDesafio(-1))}>Voltar</button>
+            <button onClick={()=>(terminarFase(556))} className='terminarFase'>Terminar Fase</button>
+            <button className='botaoNavegarDesafios' onClick={()=>(trocandoDesafio(+1))}>Próximo</button>
+            </span>
         </section>
     )
 } 

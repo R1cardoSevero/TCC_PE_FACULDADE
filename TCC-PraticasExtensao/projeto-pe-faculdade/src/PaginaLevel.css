@@ -18,7 +18,7 @@
     border: none;
     background-color:#E85D04;
     color: #f1f1f1;
-    width: 100px;
+    width: 120px;
 }
 
 #paginaLevel .botaoNavegarDesafios{
@@ -32,6 +32,6 @@
     border: none;
     background-color:#620f00;
     color: #f1f1f1;
-    width: 100px;
+    width: fit-content;
     color: red;
 }
