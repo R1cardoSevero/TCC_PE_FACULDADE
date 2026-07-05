@@ -10,7 +10,6 @@ export default function AreaFases(props){
     const [faseEscolhida, setFaseEscolhida] = useState(null)
     const [fasesBD, setFasesBD] = useState(null)
     const fasesConcluidas = props.fasesConcluidas
-    console.log(faseInfoSection)
 
     function escolheuFase(idFase){
         const novaFase = fasesBD.find(f => f.id === idFase)
