@@ -15,6 +15,9 @@ export default function PaginaUsuario(props){
     const [abaConfiguracao, setAbaConfiguracao] = useState(false)
     const location = useLocation()
     const id = location.state?.id
+    const xpGanho = location.state?.xpGanho;
+    
+    console.log(xpGanho)
     
     function onEscolheuFase(){
         console.log("escolheu fase")

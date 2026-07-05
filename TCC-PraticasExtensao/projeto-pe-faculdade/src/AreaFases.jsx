@@ -10,17 +10,17 @@ export default function AreaFases(props){
     const [faseEscolhida, setFaseEscolhida] = useState(null)
     const [fasesBD, setFasesBD] = useState(null)
     const fasesConcluidas = props.fasesConcluidas
-    console.log(props)
-    console.log(fasesConcluidas)
+    console.log(faseInfoSection)
 
     function escolheuFase(idFase){
-        
-        if(faseEscolhida){
-            setFaseInfoSection(prev => faseEscolhida.id==idFase?!prev:prev)
-        }else{
+        const novaFase = fasesBD.find(f => f.id === idFase)
+
+        if(faseEscolhida && faseEscolhida.id === idFase){
             setFaseInfoSection(prev => !prev)
+        } else {
+            setFaseEscolhida(novaFase)
+            setFaseInfoSection(true)
         }
-        setFaseEscolhida(fasesBD.find(f => f.id === idFase))
     }
     
     function abrirFecharInfo(){

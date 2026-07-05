@@ -23,6 +23,7 @@ const desafios = [
     correta: "A",
     se_errar: 'Quase lá! Lembre-se que a função print() exibe apenas o conteúdo que está dentro das aspas, sem mostrar a função em si. Tente novamente!',
     se_acertar: 'Parabéns! Você acertou! 🎉',
+    xp: 50,
   },
   {
     id: 2,
@@ -49,6 +50,7 @@ const desafios = [
     correta: "C",
     se_errar: 'Atenção! Quando usamos print() com o nome de uma variável (sem aspas), o Python exibe o valor guardado nela, não o nome. Tente novamente!',
     se_acertar: 'Parabéns! Você acertou! 🎉',
+    xp: 50,
   },
   {
     id: 3,
@@ -76,6 +78,7 @@ const desafios = [
     correta: "D",
     se_errar: "Quase! Strings são textos que ficam entre aspas (\" \" ou ' '). Olhe novamente para as variáveis e veja qual delas tem um texto entre aspas.",
     se_acertar: 'Parabéns! Você acertou! 🎉',
+    xp: 50,
   },
   {
     id: 4,
@@ -106,6 +109,7 @@ const desafios = [
     correta: "C",
     se_errar: 'Atenção! O operador * em Python representa multiplicação, não concatenação. Então 8 * 3 significa 8 vezes 3. Tente calcular novamente!',
     se_acertar: 'Parabéns! Você acertou! 🎉',
+    xp: 80,
   },
   {
     id: 5,
@@ -132,6 +136,7 @@ const desafios = [
     correta: "C",
     se_errar: 'Quase lá! O operador + entre strings serve para juntá-las (concatenação). O valor que o usuário digitou é guardado na variável sem as aspas. Tente novamente!',
     se_acertar: 'Parabéns! Você acertou! 🎉',
+    xp: 100,
   },
 ];
 
