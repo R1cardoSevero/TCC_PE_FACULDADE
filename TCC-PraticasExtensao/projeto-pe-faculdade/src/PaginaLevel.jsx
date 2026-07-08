@@ -5,14 +5,16 @@ import desafios from './desafios'
 import { useParams, useNavigate,useLocation } from 'react-router-dom'
 
 export default function PaginaLevel(){
-    const { idFase } = useParams()
+    const { idFase} = useParams()
     const navigate = useNavigate()
     const location = useLocation() 
     const [desafioAtual,setDesafioAtual] = useState(1)
     const [xpGanhoTotal, setXpGanhoTotal] = useState(0)
+    const xpMinimo = location.state?.xpMinimo
 
     function terminarFase(xpGanho) {
-        navigate('/home', { state: { id: location.state?.idUsuario, xpGanho } })
+        console.log(xpMinimo)
+        navigate('/home', { state: { id: location.state?.idUsuario, xpGanho, idFase } })
     }
 
     function TerminouDesafio(xpGanho){
@@ -35,10 +37,6 @@ export default function PaginaLevel(){
             <button onClick={()=>(terminarFase())} className='terminarFase'>Cancelar Fase</button>
             <h1>LEVEL - {idFase}</h1>
             {desafios.filter((desafio) => desafio.id === desafioAtual).map((desafio) => <Desafio key={desafio.id} infoDesafio={desafio} onTerminouDesafio={TerminouDesafio}/>)}
-            <span>
-            {/*<button className='botaoNavegarDesafios' onClick={()=>(trocandoDesafio(-1))}>Voltar</button>*/}
-            {/*<button className='botaoNavegarDesafios' onClick={()=>(trocandoDesafio(+1))}>Próximo</button>*/}
-            </span>
         </section>
     )
 } 

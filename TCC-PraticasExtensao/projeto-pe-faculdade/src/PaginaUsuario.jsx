@@ -16,8 +16,7 @@ export default function PaginaUsuario(props){
     const location = useLocation()
     const id = location.state?.id
     const xpGanho = location.state?.xpGanho;
-    
-    console.log(xpGanho)
+    const idFase = location.state?.idFase;
     
     function onEscolheuFase(){
         console.log("escolheu fase")

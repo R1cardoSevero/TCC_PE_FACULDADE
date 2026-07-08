@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './desafio.css'
 import somAcerto from './sounds/efeito-sonoro-acerto.mp3';
+import somErro from './sounds/efeito-sonoro-errou.mp3';
 
 
 export default function Desafio(props){
@@ -10,7 +11,9 @@ export default function Desafio(props){
     const [acertou, setAcertou] = useState(null)
     const [xpGanho, setXpGanho] = useState(infoFase.xp)
     const efeitoSonoroAcertou = new Audio(somAcerto);
+    const efeitoSonoroErrou = new Audio(somErro);
     efeitoSonoroAcertou.preload = 'auto';
+    efeitoSonoroErrou.preload = 'auto';
 
     function responderPergunta(){
         if(alternativaEscolhida == infoFase.correta){
@@ -21,6 +24,7 @@ export default function Desafio(props){
             console.log("resposta errada")
             setXpGanho((prev)=>Math.round(prev - prev/2))
             setAcertou(false)
+            efeitoSonoroErrou.play()
         }
     }
 

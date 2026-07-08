@@ -116,9 +116,11 @@
     }
 }
 
-#desafioArticle .errou{
-    background-color: rgb(218, 18, 18);
-    color: #f1f1f1;
+#desafioArticle .dicaDesafio{
+    background-color: rgba(255, 221, 0, 0.447);
+    border: 1px solid rgb(255, 0, 0);
+    color: #1e1e1e;
     text-align: center;
+    font-weight: lighter;
     border-radius: 20px;
 }

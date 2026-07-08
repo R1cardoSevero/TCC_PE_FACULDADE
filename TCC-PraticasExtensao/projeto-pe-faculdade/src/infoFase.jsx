@@ -11,7 +11,7 @@ export default function InfoFaseSection(props){
     }
 
     function iniciarFase(idFase) {
-        navigate(`/fase/${idFase}`, { state: {idUsuario:idUsuario} }) //NUMERO FIXO
+        navigate(`/fase/${idFase}`, { state: {idUsuario, xpMinimo:fase.xp} }) //NUMERO FIXO
     }
 
     return(
@@ -20,6 +20,7 @@ export default function InfoFaseSection(props){
                 <button id="botao-fechar" onClick={()=>(fecharJanela())}>Voltar</button>
                 <h4>Fase {fase.id} - {fase.titulo}</h4>
                 <p>{fase.descricao}</p>
+                <p style={{textAlign:'Center'}}><i>Mínimo para concluir - {fase.xp}</i></p>
                 <button onClick={()=>(iniciarFase(fase.id))} id="botao-iniciar">Iniciar</button>
             </section>
         </>
