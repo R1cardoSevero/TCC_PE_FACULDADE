@@ -36,7 +36,7 @@ export default function PaginaLevel(){
         if(xpGanho >= xpMinimo){
             await adicionarFaseConcluida(idUsuario, idFase)
         }
-        
+
         await adicionarNovoXp(idUsuario, xpGanho)
         navigate('/home', { state: { id: idUsuario, xpGanho, idFase } })
     }
@@ -71,12 +71,14 @@ export default function PaginaLevel(){
 
     const fasesAtuais = usuario.fases_concluidas || [];
 
-    if (fasesAtuais.includes(novaFase)) {
+    if (fasesAtuais.includes(Number(novaFase))) {
         console.log('Fase já concluída');
         return;
     }
 
     const novasFases = [...fasesAtuais, novaFase];
+
+    
 
     const { data, error } = await supabase
         .from('usuarios')
