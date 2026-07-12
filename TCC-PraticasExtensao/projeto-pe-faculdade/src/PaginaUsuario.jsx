@@ -8,6 +8,7 @@ import Configuracoes from './Configuracoes';
 import BotaoConfiguracoes from './BotaoConfiguracoes.jsx'
 import AreaFases from './AreaFases.jsx';
 import { useLocation } from 'react-router-dom'
+import InfoTerminoDeFase from './InfoTerminoDeFase.jsx'
 
 
 export default function PaginaUsuario(props){
@@ -17,15 +18,14 @@ export default function PaginaUsuario(props){
     const id = location.state?.id
     const xpGanho = location.state?.xpGanho;
     const idFase = location.state?.idFase;
-    
-    function onEscolheuFase(){
-        console.log("escolheu fase")
+    const [InfoTerminoFase,setInfoTerminoFase] = useState(false)
+
+    function onAbrirFecharInfoTerminoDeFase(){
+        setInfoTerminoFase((prev)=>!prev)
     }
     
     async function buscarUsuario(){
-        const { data, error } = await supabase
-            .from('usuarios')
-            .select('id, username, xp, fases_concluidas').eq('id', id).single();
+        const { data, error } = await supabase.from('usuarios').select('id, username, xp, fases_concluidas').eq('id', id).single();
 
         if (error) console.error(error);
         else setDadosUsuario(data);
@@ -58,6 +58,7 @@ export default function PaginaUsuario(props){
             <AreaFases idUsuario={id} fasesConcluidas={dadosUsuario.fases_concluidas?dadosUsuario.fases_concluidas:[]}/>
             <UserXpInfo xp={dadosUsuario.xp}/>
             <Configuracoes fechadoAberto={abaConfiguracao?'aberto':'fechado'} onAbrirFechar={onAbrirFechar} dadosUsuario={dadosUsuario} onBuscarUsuario={buscarUsuario}  onTrocaUsername={trocandoUserName}/>
+            {InfoTerminoFase && <InfoTerminoDeFase/>}
         </main>
     </>
 }
