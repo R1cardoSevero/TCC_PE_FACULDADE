@@ -33,13 +33,33 @@ export default function PaginaLevel(){
     }
 
     async function terminarFase(xpGanho) {
-        console.log(`XpGanho:${xpGanho}`)
         if(xpGanho >= xpMinimo){
             await adicionarFaseConcluida(idUsuario, idFase)
-        }else{
-            console.log("menor")
         }
+        
+        await adicionarNovoXp(idUsuario, xpGanho)
         navigate('/home', { state: { id: idUsuario, xpGanho, idFase } })
+    }
+
+    async function adicionarNovoXp(userId, xpGanho){
+        const { data: usuario, error: fetchError } = await supabase
+        .from('usuarios')
+        .select('xp')
+        .eq('id', userId)
+        .single();
+
+        let novoXp = usuario.xp + xpGanho
+
+        const { data, error } = await supabase
+            .from('usuarios')
+            .update({ xp: novoXp })
+            .eq('id', userId);
+
+        if (error) {
+            console.error('Erro ao atualizar:', error);
+        } else {
+            console.log('Xp adicionado com sucesso!');
+        }
     }
 
     async function adicionarFaseConcluida(userId, novaFase) {
@@ -71,17 +91,18 @@ export default function PaginaLevel(){
     }
 
     function TerminouDesafio(xpGanho){
-        setXpGanhoTotal((prev) => prev + xpGanho)
-        proximoDesafio()
+        let novoXpGanho = xpGanhoTotal + xpGanho
+        setXpGanhoTotal(novoXpGanho)
+        proximoDesafio(novoXpGanho)
     }
 
-    function proximoDesafio(){
+    function proximoDesafio(novoXpGanho){
         const proximoIndice = indiceAtual + 1;
         
         if (proximoIndice < desafiosEmbaralhados.length) {
             setIndiceAtual(proximoIndice);
         } else {
-            terminarFase(xpGanhoTotal)
+            terminarFase(novoXpGanho)
         }
     }
     
@@ -92,6 +113,7 @@ export default function PaginaLevel(){
             <button onClick={() => terminarFase()} className='terminarFase'>Cancelar Fase</button>
             <h1>LEVEL - {idFase}</h1>
             {desafioAtual && (<Desafio key={desafioAtual.id} infoDesafio={desafioAtual} onTerminouDesafio={TerminouDesafio}/>)}
+            <h3 style={{padding:'10px', color:xpGanhoTotal<xpMinimo?'rgb(147, 5, 5)':'rgb(8, 99, 8)'}}>{xpGanhoTotal}/{xpMinimo}</h3>
         </section>
     )
 }
