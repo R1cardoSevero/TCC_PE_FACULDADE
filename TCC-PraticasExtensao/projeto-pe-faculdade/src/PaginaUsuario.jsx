@@ -25,7 +25,7 @@ export default function PaginaUsuario(props){
     }
     
     async function buscarUsuario(){
-        const { data, error } = await supabase.from('usuarios').select('id, username, xp, fases_concluidas').eq('id', id).single();
+        const { data, error } = await supabase.from('usuarios').select('*').eq('id', id).single();
 
         if (error) console.error(error);
         else setDadosUsuario(data);
@@ -35,6 +35,10 @@ export default function PaginaUsuario(props){
         setDadosUsuario(prev => ({ ...prev, username: novoUserName })) // ✅
     }
 
+    function trocandoAvatar(avatar_url){
+        setDadosUsuario(prev => ({ ...prev, avatar_url: avatar_url }))
+    }
+
     useEffect(() => {
         window.scrollTo(0, document.body.scrollHeight)
     }, [dadosUsuario])
@@ -42,6 +46,7 @@ export default function PaginaUsuario(props){
     useEffect(() => {
         buscarUsuario();
     }, [id])
+    
 
     function onAbrirFechar(){
         setAbaConfiguracao(prev => {
@@ -51,13 +56,15 @@ export default function PaginaUsuario(props){
     })
     }
 
+    
+
     return <>
         <main>
-            <UserInfo userImage={imagemDefaultUser} userName={dadosUsuario.username} xp={dadosUsuario.xp}/>
+            <UserInfo userImage={dadosUsuario.avatar_url?dadosUsuario.avatar_url:imagemDefaultUser} userName={dadosUsuario.username} xp={dadosUsuario.xp}/>
             <BotaoConfiguracoes onAbrirFechar={onAbrirFechar}/>
             <AreaFases idUsuario={id} fasesConcluidas={dadosUsuario.fases_concluidas?dadosUsuario.fases_concluidas:[]}/>
             <UserXpInfo xp={dadosUsuario.xp}/>
-            <Configuracoes fechadoAberto={abaConfiguracao?'aberto':'fechado'} onAbrirFechar={onAbrirFechar} dadosUsuario={dadosUsuario} onBuscarUsuario={buscarUsuario}  onTrocaUsername={trocandoUserName}/>
+            <Configuracoes fechadoAberto={abaConfiguracao?'aberto':'fechado'} onAbrirFechar={onAbrirFechar} dadosUsuario={dadosUsuario} onBuscarUsuario={buscarUsuario}  onTrocaUsername={trocandoUserName} onTrocaAvatar={trocandoAvatar}/>
             {InfoTerminoFase && <InfoTerminoDeFase/>}
         </main>
     </>

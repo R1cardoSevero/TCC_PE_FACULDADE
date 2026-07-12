@@ -5,32 +5,37 @@ import desafios from './desafios'
 import supabase from './supabase';
 import { useParams, useNavigate, useLocation } from 'react-router-dom'
 
-function embaralhar(array) {
-    const copia = [...array];
-    for (let i = copia.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [copia[i], copia[j]] = [copia[j], copia[i]];
-    }
-    return copia;
-}
-
 export default function PaginaLevel(){
     const { idFase } = useParams()
     const navigate = useNavigate()
     const location = useLocation() 
     const [indiceAtual, setIndiceAtual] = useState(0)
     const [xpGanhoTotal, setXpGanhoTotal] = useState(0)
-    const [desafiosEmbaralhados] = useState(() => embaralhar(desafios));
+    const desafiosDaFase = pegarDesafiosDaFase(desafios, idFase);
+    const [desafiosEmbaralhados] = useState(() => embaralhar(desafiosDaFase));
     const xpMinimo = location.state?.xpMinimo
     const idUsuario = location.state?.idUsuario
 
     console.log(`xpMinimo:${xpMinimo}`)
     console.log(`idUsuario:${idUsuario}`)
 
-    function terminarFase(xpGanho) {
+    function pegarDesafiosDaFase(desafios, idFase) {
+        return desafios.filter((desafio) => desafio.id_fase === Number(idFase));
+    }
+
+    function embaralhar(array) {
+        const copia = [...array];
+        for (let i = copia.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [copia[i], copia[j]] = [copia[j], copia[i]];
+        }
+        return copia;
+    }
+
+    async function terminarFase(xpGanho) {
         console.log(`XpGanho:${xpGanho}`)
         if(xpGanho >= xpMinimo){
-            adicionarFaseConcluida(idUsuario, idFase)
+            await adicionarFaseConcluida(idUsuario, idFase)
         }else{
             console.log("menor")
         }
