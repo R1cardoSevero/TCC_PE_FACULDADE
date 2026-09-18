@@ -1,6 +1,4 @@
 #infoFase{
-    background-color: red;
-    position: absolute;
     background-color:#ed5f07;
     height: fit-content;
     position: fixed;
@@ -47,7 +45,6 @@
     }
 
     #botao-fechar{
-        background-color: red;
         position: absolute;
         top: 0;
         left: 50%;

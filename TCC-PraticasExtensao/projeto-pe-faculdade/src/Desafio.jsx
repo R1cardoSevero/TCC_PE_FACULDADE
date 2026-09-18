@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './desafio.css'
 import somAcerto from './sounds/efeito-sonoro-acerto.mp3';
 import somErro from './sounds/efeito-sonoro-errou.mp3';
@@ -10,21 +10,30 @@ export default function Desafio(props){
     const [alternativaEscolhida, setAlternativaEscolhida] = useState(null)
     const [acertou, setAcertou] = useState(null)
     const [xpGanho, setXpGanho] = useState(infoFase.xp)
-    const efeitoSonoroAcertou = new Audio(somAcerto);
-    const efeitoSonoroErrou = new Audio(somErro);
-    efeitoSonoroAcertou.preload = 'auto';
-    efeitoSonoroErrou.preload = 'auto';
+    const somAcertoRef = useRef(null)
+    const somErroRef = useRef(null)
+
+    // cria o Audio uma vez só (antes era recriado a cada render) e ignora
+    // a rejeição do play() quando o navegador bloqueia o autoplay
+    function tocarSom(ref, src){
+        if (!ref.current) {
+            ref.current = new Audio(src)
+            ref.current.preload = 'auto'
+        }
+        ref.current.currentTime = 0
+        ref.current.play().catch(() => {})
+    }
 
     function responderPergunta(){
         if(alternativaEscolhida == infoFase.correta){
             console.log("resposta certa")
             setAcertou(true)
-            efeitoSonoroAcertou.play()
+            tocarSom(somAcertoRef, somAcerto)
         }else{
             console.log("resposta errada")
             setXpGanho((prev)=>Math.round(prev - prev/2))
             setAcertou(false)
-            efeitoSonoroErrou.play()
+            tocarSom(somErroRef, somErro)
         }
     }
 
@@ -40,11 +49,11 @@ export default function Desafio(props){
 
     return <div id="desafioArticle" className='acertou'>
             <h1>Desafio</h1>
-            {infoFase.texto_fase.map((texto)=>(<p>{texto}</p>))}
+            {infoFase.texto_fase.map((texto, i)=>(<p key={i}>{texto}</p>))}
             <section id="alternativas">
                 <h3 id='xpGanhoPeloDesafio'>XP {xpGanho}</h3>
                 {alternativas.map((alternativa)=>(
-                    <label className={alternativaEscolhida == alternativa.id && !acertou ? 'opcaoEscolhida' : (acertou && infoFase.correta == alternativa.id ? 'labelAcertou' : '')}>
+                    <label key={alternativa.id} className={alternativaEscolhida == alternativa.id && !acertou ? 'opcaoEscolhida' : (acertou && infoFase.correta == alternativa.id ? 'labelAcertou' : '')}>
                         <input type="radio" 
                         name="alternativa_escolhida" 
                         value={alternativa.id} 

@@ -12,7 +12,7 @@ import InfoTerminoDeFase from './InfoTerminoDeFase.jsx'
 
 
 export default function PaginaUsuario(props){
-    const [dadosUsuario, setDadosUsuario] = useState("")
+    const [dadosUsuario, setDadosUsuario] = useState({})
     const [abaConfiguracao, setAbaConfiguracao] = useState(false)
     const location = useLocation()
     const id = location.state?.id
@@ -25,6 +25,8 @@ export default function PaginaUsuario(props){
     }
     
     async function buscarUsuario(){
+        if (!id) return; // evita consultar com id undefined (ex: entrar em /home direto)
+
         const { data, error } = await supabase.from('usuarios').select('*').eq('id', id).single();
 
         if (error) console.error(error);
@@ -46,6 +48,11 @@ export default function PaginaUsuario(props){
     useEffect(() => {
         buscarUsuario();
     }, [id])
+
+    // garante que o scroll da página volta ao normal se sair com as configurações abertas
+    useEffect(() => {
+        return () => { document.body.style.overflow = '' }
+    }, [])
     
 
     function onAbrirFechar(){

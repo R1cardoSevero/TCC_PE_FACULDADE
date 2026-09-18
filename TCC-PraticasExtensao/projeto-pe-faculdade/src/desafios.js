@@ -960,7 +960,7 @@ const desafios = [
     xp: 50,
   },
   {
-    id: 40, // ID sequencial do último desafio deste bloco
+    id: 50,
     id_fase: 5,
     texto_fase: [
       'Chegamos ao fim do primeiro grande bloco de fundamentos!',
@@ -2370,7 +2370,6 @@ const desafios = [
   // FASE 13: INTRODUÇÃO ÀS LISTAS (ID_FASE: 13)
   // ==========================================
   {
-    id: 101, // Reiniciando IDs sequenciais se preferir manter o padrão do seu banco
     id: 121,
     id_fase: 13,
     texto_fase: [
@@ -3807,7 +3806,6 @@ const desafios = [
     xp: 50,
   },
   {
-    id: 100, // ID 200 global
     id: 200,
     id_fase: 20,
     texto_fase: [

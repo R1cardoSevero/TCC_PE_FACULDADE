@@ -1,7 +1,6 @@
 import { useState } from "react"
 import './PaginaLogin.css'
 import supabase from './supabase';
-import PaginaUsuario from "./PaginaUsuario";
 import { useNavigate } from 'react-router-dom'
 
 export default function PaginaLogin() {
@@ -10,9 +9,7 @@ export default function PaginaLogin() {
   const [email, setEmail] = useState("")
   const [senha, setSenha] = useState("")
   const [emailConfirmacao, setEmailConfirmacao] = useState("")
-  const [idUsuario, setIdUsuario] = useState("")
   const [infoErro, setInfoErro] = useState("")
-  const [logado, setLogado] = useState(false)
 
   async function Logar(e) {
     e.preventDefault()
@@ -35,13 +32,15 @@ export default function PaginaLogin() {
     if (error) {
       if (error.code === 'PGRST116') {
         setInfoErro("Nenhuma conta encontrada com esse e-mail.")
+      } else {
+        // sem esse else o botão parecia não fazer nada em qualquer outro erro
+        setInfoErro("Não foi possível entrar agora. Tente novamente.")
       }
       return
     }
 
     if (senha === data.user_password) {
-      setIdUsuario(data.id)
-      navigate('/home', { state: { id: data.id } })  // ← substitui o setLogado(true)
+      navigate('/home', { state: { id: data.id } })
     } else {
       setInfoErro("Senha incorreta. Tente novamente.")
     }
@@ -61,8 +60,15 @@ export default function PaginaLogin() {
       }
     }else{
         alert("Cadastrado com sucesso")
-        setModo("modo-login")
+        trocarModo("modo-login")
     }
+  }
+
+  function trocarModo(novoModo) {
+    setModo(novoModo)
+    setSenha("")
+    setEmailConfirmacao("")
+    setInfoErro("")
   }
 
   async function Cadastrar(e) {
@@ -122,7 +128,7 @@ export default function PaginaLogin() {
             <div className="links-rodape">
               <a
                 className="link-secundario"
-                onClick={() => { setModo("modo-cadastro"); setSenha("") }}
+                onClick={() => trocarModo("modo-cadastro")}
               >
                 Não tenho conta
               </a>
@@ -173,7 +179,7 @@ export default function PaginaLogin() {
             <div className="links-rodape">
               <a
                 className="link-secundario"
-                onClick={() => { setModo("modo-login"); setSenha("") }}
+                onClick={() => trocarModo("modo-login")}
               >
                 Já tenho conta
               </a>

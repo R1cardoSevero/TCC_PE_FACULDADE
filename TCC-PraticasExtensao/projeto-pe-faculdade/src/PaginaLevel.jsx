@@ -16,9 +16,6 @@ export default function PaginaLevel(){
     const xpMinimo = location.state?.xpMinimo
     const idUsuario = location.state?.idUsuario
 
-    console.log(`xpMinimo:${xpMinimo}`)
-    console.log(`idUsuario:${idUsuario}`)
-
     function pegarDesafiosDaFase(desafios, idFase) {
         return desafios.filter((desafio) => desafio.id_fase === Number(idFase));
     }
@@ -32,7 +29,7 @@ export default function PaginaLevel(){
         return copia;
     }
 
-    async function terminarFase(xpGanho) {
+    async function terminarFase(xpGanho = 0) {
         if(xpGanho >= xpMinimo){
             await adicionarFaseConcluida(idUsuario, idFase)
         }
@@ -48,7 +45,12 @@ export default function PaginaLevel(){
         .eq('id', userId)
         .single();
 
-        let novoXp = usuario.xp + xpGanho
+        if (fetchError || !usuario) {
+            console.error('Erro ao buscar XP do usuário:', fetchError);
+            return;
+        }
+
+        let novoXp = (usuario.xp || 0) + xpGanho
 
         const { data, error } = await supabase
             .from('usuarios')
@@ -69,6 +71,11 @@ export default function PaginaLevel(){
         .eq('id', userId)
         .single();
 
+    if (fetchError || !usuario) {
+        console.error('Erro ao buscar fases concluídas:', fetchError);
+        return;
+    }
+
     const fasesAtuais = usuario.fases_concluidas || [];
 
     if (fasesAtuais.includes(Number(novaFase))) {
@@ -76,7 +83,7 @@ export default function PaginaLevel(){
         return;
     }
 
-    const novasFases = [...fasesAtuais, novaFase];
+    const novasFases = [...fasesAtuais, Number(novaFase)];
 
     
 
@@ -112,7 +119,7 @@ export default function PaginaLevel(){
 
     return (
         <section id="paginaLevel">
-            <button onClick={() => terminarFase()} className='terminarFase'>Cancelar Fase</button>
+            <button onClick={() => terminarFase(xpGanhoTotal)} className='terminarFase'>Cancelar Fase</button>
             <h1>LEVEL - {idFase}</h1>
             {desafioAtual && (<Desafio key={desafioAtual.id} infoDesafio={desafioAtual} onTerminouDesafio={TerminouDesafio}/>)}
             <h3 style={{padding:'10px', color:xpGanhoTotal<xpMinimo?'rgb(147, 5, 5)':'rgb(8, 99, 8)'}}>{xpGanhoTotal}/{xpMinimo}</h3>
